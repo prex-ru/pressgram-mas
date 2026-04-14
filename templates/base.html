@@ -27,6 +27,31 @@ Please see LICENSE files in the repository root for full details.
     {{ include_asset('src/entrypoints/templates.css') | indent(4) | safe }}
     {{ include_asset('src/entrypoints/templates.ts') | indent(4) | safe }}
     {{ captcha.head() }}
+    {# Pressgram: remap compound green tokens to the pressgram-blue
+       palette so MAS pages pick up the same brand colour as Element
+       Web without rebuilding compound-web against our tokens fork. #}
+    <style>
+      :root,
+      .cpd-theme-light,
+      .cpd-theme-dark,
+      .cpd-theme-light-hc,
+      .cpd-theme-dark-hc {
+        --cpd-color-green-100: #d9e5ff;
+        --cpd-color-green-200: #b3caff;
+        --cpd-color-green-300: #85aeff;
+        --cpd-color-green-400: #5891fb;
+        --cpd-color-green-500: #2f74ee;
+        --cpd-color-green-600: #1071e0;
+        --cpd-color-green-700: #0c5abc;
+        --cpd-color-green-800: #084596;
+        --cpd-color-green-900: #053373;
+        --cpd-color-green-1000: #032555;
+        --cpd-color-green-1100: #021a3c;
+        --cpd-color-green-1200: #01112a;
+        --cpd-color-green-1300: #000a1d;
+        --cpd-color-green-1400: #000611;
+      }
+    </style>
   </head>
   <body>
     <div class="layout-container{% if consent_page is defined %} consent{% endif %}">
