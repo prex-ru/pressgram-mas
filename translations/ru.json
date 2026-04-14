@@ -11,8 +11,8 @@
     "submit": "Отправить"
   },
   "app": {
-    "human_name": "Matrix Authentication Service",
-    "name": "matrix-authentication-service",
+    "human_name": "Pressgram ID",
+    "name": "pressgram-id",
     "technical_description": "OpenID Connect документ обнаружения: <a class=\"cpd-link\" data-kind=\"primary\" href=\"%(discovery_url)s\"> %(discovery_url)s </a>"
   },
   "branding": {
@@ -121,14 +121,14 @@
         "copy_link": "Скопируйте следующую ссылку и вставьте ее в браузер, чтобы создать новый пароль:",
         "create_new_password": "Создайте новый пароль",
         "fallback": "Не работает кнопка?",
-        "headline": "Вы запросили сброс пароля для своей учетной записи на %(server_name)s.",
-        "subject": "Сброс пароля учетной записи (%(mxid)s)",
+        "headline": "Вы запросили сброс пароля для своей учётной записи в Pressgram на %(server_name)s.",
+        "subject": "Восстановление пароля в Pressgram (%(mxid)s)",
         "you_can_ignore": "Если вы не запрашивали сброс пароля, можете проигнорировать это письмо. Ваш текущий пароль продолжит работать."
       },
       "verify": {
         "body_html": "Ваш код для подтверждения этого адреса электронной почты: <strong>%(code)s</strong>",
         "body_text": "Ваш код для подтверждения этого адреса электронной почты: %(code)s",
-        "subject": "Ваш код подтверждения электронной почты: %(code)s"
+        "subject": "Код подтверждения Pressgram: %(code)s"
       }
     },
     "errors": {

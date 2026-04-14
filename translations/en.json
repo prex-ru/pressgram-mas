@@ -34,12 +34,12 @@
     }
   },
   "app": {
-    "human_name": "Matrix Authentication Service",
+    "human_name": "Pressgram ID",
     "@human_name": {
       "context": "pages/index.html:15:29-48",
       "description": "Human readable name of the application"
     },
-    "name": "matrix-authentication-service",
+    "name": "pressgram-id",
     "@name": {
       "context": "app.html:17:14-27, base.html:24:31-44",
       "description": "Name of the application"
@@ -307,11 +307,11 @@
         "@fallback": {
           "context": "emails/recovery.html:45:9-42"
         },
-        "headline": "You requested a password reset for your %(server_name)s account.",
+        "headline": "You requested a password reset for your Pressgram account on %(server_name)s.",
         "@headline": {
           "context": "emails/recovery.html:26:7-74, emails/recovery.txt:10:3-70"
         },
-        "subject": "Reset your account password (%(mxid)s)",
+        "subject": "Pressgram account password reset (%(mxid)s)",
         "@subject": {
           "context": "emails/recovery.subject:14:3-46"
         },
@@ -331,7 +331,7 @@
           "context": "emails/verification.txt:19:3-66",
           "description": "The body of the email sent to verify an email address (text)"
         },
-        "subject": "Your email verification code is: %(code)s",
+        "subject": "Pressgram verification code: %(code)s",
         "@subject": {
           "context": "emails/verification.subject:11:3-64",
           "description": "The subject line of the email sent to verify an email address"
