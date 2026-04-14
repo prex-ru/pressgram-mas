@@ -22,34 +22,33 @@ Please see LICENSE files in the repository root for full details.
   <head>
     <meta charset="utf-8">
     <title>{% block title %}{{ _("app.name") }}{% endblock title %}</title>
+    <link rel="icon" type="image/x-icon" href="https://pgram.im/pressgram-logo-blue.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{ include_asset('src/entrypoints/shared.css') | indent(4) | safe }}
     {{ include_asset('src/entrypoints/templates.css') | indent(4) | safe }}
     {{ include_asset('src/entrypoints/templates.ts') | indent(4) | safe }}
     {{ captcha.head() }}
-    {# Pressgram: remap compound green tokens to the pressgram-blue
-       palette so MAS pages pick up the same brand colour as Element
-       Web without rebuilding compound-web against our tokens fork. #}
+    {# Pressgram: remap compound green tokens onto the pressgram-blue
+       Leonardo scale so MAS pages pick up the same brand colour as
+       Element Web without rebuilding compound-web against our tokens
+       fork. Scoped to :root,html so the rule wins against
+       cpd-theme-* selectors from the compiled CSS. #}
     <style>
-      :root,
-      .cpd-theme-light,
-      .cpd-theme-dark,
-      .cpd-theme-light-hc,
-      .cpd-theme-dark-hc {
-        --cpd-color-green-100: #d9e5ff;
-        --cpd-color-green-200: #b3caff;
-        --cpd-color-green-300: #85aeff;
-        --cpd-color-green-400: #5891fb;
-        --cpd-color-green-500: #2f74ee;
-        --cpd-color-green-600: #1071e0;
-        --cpd-color-green-700: #0c5abc;
-        --cpd-color-green-800: #084596;
-        --cpd-color-green-900: #053373;
-        --cpd-color-green-1000: #032555;
-        --cpd-color-green-1100: #021a3c;
-        --cpd-color-green-1200: #01112a;
-        --cpd-color-green-1300: #000a1d;
-        --cpd-color-green-1400: #000611;
+      :root, html {
+        --cpd-color-green-100: #f9fcff;
+        --cpd-color-green-200: #f4f8fe;
+        --cpd-color-green-300: #e9f2fe;
+        --cpd-color-green-400: #d9e7fc;
+        --cpd-color-green-500: #bbd5f9;
+        --cpd-color-green-600: #a2c6f6;
+        --cpd-color-green-700: #7faff1;
+        --cpd-color-green-800: #4389e7;
+        --cpd-color-green-900: #0069d7;
+        --cpd-color-green-1000: #0058c5;
+        --cpd-color-green-1100: #0049b5;
+        --cpd-color-green-1200: #0034a0;
+        --cpd-color-green-1300: #001c89;
+        --cpd-color-green-1400: #000074;
       }
     </style>
   </head>
