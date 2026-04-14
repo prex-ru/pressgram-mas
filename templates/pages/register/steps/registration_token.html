@@ -41,4 +41,24 @@ Please see LICENSE files in the repository root for full details.
       {{ button.button(text=_("action.continue")) }}
     </form>
   </div>
+
+  {# Pressgram deep-link pre-fill: Element Web's app.tsx writes the
+     invite token into a `pressgram_reg_token` cookie scoped to the
+     registrable domain when the user arrives from /join/<server>/<token>.
+     Read it back here so the user doesn't need to copy-paste the code
+     into the form. Cookie is one-shot — cleared once read. #}
+  <script>
+    (function () {
+      try {
+        var m = document.cookie.match(/(?:^|;\s*)pressgram_reg_token=([^;]+)/);
+        if (!m) return;
+        var token = decodeURIComponent(m[1]);
+        var input = document.getElementById("cpd-text-control");
+        if (input && !input.value) input.value = token;
+        // Clear so a second registration attempt on the same browser
+        // doesn't silently reuse a stale token.
+        document.cookie = "pressgram_reg_token=; Max-Age=0; path=/; SameSite=Lax";
+      } catch (_) {}
+    })();
+  </script>
 {% endblock content %}
