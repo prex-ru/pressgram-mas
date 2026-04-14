@@ -42,23 +42,26 @@ Please see LICENSE files in the repository root for full details.
     </form>
   </div>
 
-  {# Pressgram deep-link pre-fill: Element Web's app.tsx writes the
-     invite token into a `pressgram_reg_token` cookie scoped to the
-     registrable domain when the user arrives from /join/<server>/<token>.
-     Read it back here so the user doesn't need to copy-paste the code
-     into the form. Cookie is one-shot — cleared once read. #}
+  {# Pressgram deep-link: pre-fill token from cookie set by Element Web on *.pgram.im.
+     Cookie name: pressgram_reg_token. Auto-submits if value is present so user doesn't
+     have to click "Continue" — non-technical users experience it as "skipped" step. #}
   <script>
     (function () {
-      try {
-        var m = document.cookie.match(/(?:^|;\s*)pressgram_reg_token=([^;]+)/);
-        if (!m) return;
-        var token = decodeURIComponent(m[1]);
-        var input = document.getElementById("cpd-text-control");
-        if (input && !input.value) input.value = token;
-        // Clear so a second registration attempt on the same browser
-        // doesn't silently reuse a stale token.
-        document.cookie = "pressgram_reg_token=; Max-Age=0; path=/; SameSite=Lax";
-      } catch (_) {}
+      var m = document.cookie.match(/(?:^|;\s*)pressgram_reg_token=([^;]+)/);
+      if (!m) return;
+      var token = decodeURIComponent(m[1]);
+      var input = document.querySelector('input[name="token"]');
+      if (!input) return;
+      input.value = token;
+      // Clear cookie — it's one-shot, used or not we don't want stale state.
+      document.cookie = "pressgram_reg_token=; domain=." + location.hostname.split(".").slice(-2).join(".") +
+                        "; path=/; max-age=0; SameSite=Lax; Secure";
+      // Auto-submit only if there are no prior errors shown (e.g. invalid token → user should see why).
+      var hasErrors = document.querySelector(".text-critical");
+      if (!hasErrors) {
+        var form = input.closest("form");
+        if (form) form.submit();
+      }
     })();
   </script>
 {% endblock content %}
