@@ -88,10 +88,10 @@ pub(crate) async fn get(
         .map_err(InternalError::from_anyhow)?;
 
     if email_authentication.completed_at.is_some() {
-        // XXX: display a better error here
-        return Err(InternalError::from_anyhow(anyhow::anyhow!(
-            "Email authentication already completed"
-        )));
+        // The email is already verified: send the user to the finish step,
+        // which will redirect them to the next incomplete step
+        let destination = mas_router::RegisterFinish::new(registration.id);
+        return Ok((cookie_jar, url_builder.redirect(&destination)).into_response());
     }
 
     let ctx = RegisterStepsVerifyEmailContext::new(email_authentication)
@@ -157,10 +157,11 @@ pub(crate) async fn post(
         .map_err(InternalError::from_anyhow)?;
 
     if email_authentication.completed_at.is_some() {
-        // XXX: display a better error here
-        return Err(InternalError::from_anyhow(anyhow::anyhow!(
-            "Email authentication already completed"
-        )));
+        // The email is already verified: a duplicate submission (double-tap,
+        // back navigation) landed here, so send the user to the finish step
+        // instead of erroring out
+        let destination = mas_router::RegisterFinish::new(registration.id);
+        return Ok((cookie_jar, url_builder.redirect(&destination)).into_response());
     }
 
     if let Err(e) = limiter.check_email_authentication_attempt(&email_authentication) {

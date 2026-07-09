@@ -50,4 +50,23 @@ Please see LICENSE files in the repository root for full details.
 
     {{ button.button(text=_("action.continue")) }}
   </form>
+
+  <script>
+    (function() {
+      var form = document.querySelector("form.cpd-form-root");
+      if (!form) return;
+      var submitted = false;
+      form.addEventListener("submit", function(event) {
+        if (submitted) {
+          event.preventDefault();
+          return;
+        }
+        submitted = true;
+      });
+      // Allow resubmitting when the page is restored from the bfcache
+      window.addEventListener("pageshow", function(event) {
+        if (event.persisted) submitted = false;
+      });
+    })();
+  </script>
 {% endblock content %}
