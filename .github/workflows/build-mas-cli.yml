@@ -1,0 +1,39 @@
+name: Build mas-cli
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - pressgram/main
+    paths:
+      - "crates/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - ".github/workflows/build-mas-cli.yml"
+
+jobs:
+  build:
+    name: Build release binary (x86_64-linux)
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: "1.93.0"
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build
+        run: cargo build --locked --release -p mas-cli
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mas-cli-linux-x86_64
+          path: target/release/mas-cli
+          if-no-files-found: error
+          retention-days: 30
